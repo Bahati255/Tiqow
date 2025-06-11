@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiqow Events</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #e7efe0;
+      font-family: sans-serif;
+    }
+    .navbar {
+      background-color: #28a745;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .event-card {
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+      background: #fff;
+      height: 100%;
+    }
+    .event-card:hover {
+      transform: scale(1.02);
+    }
+    .event-img {
+      height: 180px;
+      object-fit: cover;
+      width: 100%;
+      cursor: pointer;
+    }
+    .event-body {
+      padding: 1rem;
+    }
+    .ticket-price {
+      font-weight: bold;
+      color: #198754;
+    }
+    .buy-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    .buy-btn:hover {
+      background-color: #218838;
+    }
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      border: none;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      font-size: 18px;
+      margin: 0 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .payment-option {
+      cursor: pointer;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      transition: background-color 0.3s;
+    }
+    .payment-option:hover {
+      background-color: #f1f1f1;
+    }
+    .payment-option.selected {
+      border-color: #28a745;
+      background-color: #e7f1ff;
+    }
+    .footer {
+      background-color: #20a96f;
+      padding: 20px 0;
+    }
+    .event-details {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #333;
+    }
+    .event-details p {
+      margin: 5px 0;
+    }
+    .likes-section {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .likes-section span {
+      margin-left: 5px;
+      color: #198754;
+      font-weight: bold;
+    }
+    .share-btn, .confirm-purchase-btn {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+    .share-btn:hover, .confirm-purchase-btn:hover {
+      background-color: #218838;
+    }
+    .payment-section {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    @media (max-width: 768px) {
+      .event-img {
+        height: 150px;
+      }
+      .footer iframe {
+        height: 150px;
+      }
+      .event-details, .payment-section {
+        font-size: 12px;
+      }
+      .quantity-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+      .quantity-input {
+        width: 50px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <img src="img/logo 1.png" alt="Tiqow Logo" height="55" width="145">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Notifications</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="btn btn-light btn-sm">Login/Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Upcoming Events -->
+  <div class="container mt-4">
+    <h2 class="text-center text-success mb-4">Upcoming Events</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="eventsContainer">
+      <!-- Event Card 1 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event1.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Summer Music Fest" data-event-description="Join us for an electrifying night of music and dance!" data-event-host="Tiqow Events" data-event-venue="Sat, June 15 · Nairobi Arena" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Summer Music Fest</h5>
+            <p class="card-text">Sat, June 15 · Nairobi Arena</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Summer Music Fest', 2000, 'img/event1.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 2 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event2.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Jazz Night" data-event-description="Enjoy smooth jazz with soulful performances." data-event-host="Nairobi Jazz Club" data-event-venue="Fri, June 20 · KICC" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Jazz Night</h5>
+            <p class="card-text">Fri, June 20 · KICC</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Jazz Night', 2000, 'img/event2.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 3 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event3.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Reggae Vibes" data-event-description="Feel the rhythm of reggae with top artists." data-event-host="Rasta Roadshows" data-event-venue="Sun, June 22 · Carnivore" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Reggae Vibes</h5>
+            <p class="card-text">Sun, June 22 · Carnivore</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Reggae Vibes', 2000, 'img/event3.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 4 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event4.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Comedy Night" data-event-description="Laugh out loud with top comedians." data-event-host="Laugh Factory" data-event-venue="Wed, June 25 · Sarit Centre" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Comedy Night</h5>
+            <p class="card-text">Wed, June 25 · Sarit Centre</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Comedy Night', 2000, 'img/event4.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 5 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event5.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Afrobeat Party" data-event-description="Dance to the hottest Afrobeat tracks." data-event-host="Afro Fusion" data-event-venue="Sat, June 28 · Ngong Racecourse" data-event-price="Ksh 2,500" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Afrobeat Party</h5>
+            <p class="card-text">Sat, June 28 · Ngong Racecourse</p>
+            <p class="ticket-price">Ksh 2,500</p>
+            <button class="buy-btn" onclick="showImageModal('Afrobeat Party', 2500, 'img/event5.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 6 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event6.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Cultural Festival" data-event-description="Celebrate Kenya's rich cultural heritage." data-event-host="Kenya Tourism Board" data-event-venue="Sun, June 29 · Bomas of Kenya" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Cultural Festival</h5>
+            <p class="card-text">Sun, June 29 · Bomas of Kenya</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Cultural Festival', 2000, 'img/event6.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 7 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event7.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Rock Concert" data-event-description="Rock out with top bands." data-event-host="Rock Nation" data-event-venue="Fri, July 4 · Two Rivers Mall" data-event-price="Ksh 2,500" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Rock Concert</h5>
+            <p class="card-text">Fri, July 4 · Two Rivers Mall</p>
+            <p class="ticket-price">Ksh 2,500</p>
+            <button class="buy-btn" onclick="showImageModal('Rock Concert', 2500, 'img/event7.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 8 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event8.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Dance Mania" data-event-description="Show off your dance moves at this epic party." data-event-host="Dance Kenya" data-event-venue="Sat, July 5 · Kasarani Stadium" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Dance Mania</h5>
+            <p class="card-text">Sat, July 5 · Kasarani Stadium</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Dance Mania', 2000, 'img/event8.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 9 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event9.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Gospel Night" data-event-description="Uplifting gospel music and worship." data-event-host="Gospel Events KE" data-event-venue="Sun, July 6 · Nyayo Stadium" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Gospel Night</h5>
+            <p class="card-text">Sun, July 6 · Nyayo Stadium</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Gospel Night', 2000, 'img/event9.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 10 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event10.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Hip Hop Jam" data-event-description="Experience the ultimate hip hop showdown." data-event-host="Urban Beats" data-event-venue="Sat, July 12 · Westgate Mall" data-event-price="Ksh 2,500" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Hip Hop Jam</h5>
+            <p class="card-text">Sat, July 12 · Westgate Mall</p>
+            <p class="ticket-price">Ksh 2,500</p>
+            <button class="buy-btn" onclick="showImageModal('Hip Hop Jam', 2500, 'img/event10.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 11 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event11.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Salsa Fiesta" data-event-description="Dance the night away with sizzling salsa moves." data-event-host="Salsa Kenya" data-event-venue="Fri, July 18 · Village Market" data-event-price="Ksh 2,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Salsa Fiesta</h5>
+            <p class="card-text">Fri, July 18 · Village Market</p>
+            <p class="ticket-price">Ksh 2,000</p>
+            <button class="buy-btn" onclick="showImageModal('Salsa Fiesta', 2000, 'img/event11.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- Event Card 12 -->
+      <div class="col">
+        <div class="event-card">
+          <img src="img/event12.jpg" class="event-img" data-bs-toggle="modal" data-bs-target="#imageModal" data-event-title="Food & Wine Expo" data-event-description="Savor delicious cuisines and fine wines." data-event-host="Culinary Kenya" data-event-venue="Sun, July 20 · Kenyatta Centre" data-event-price="Ksh 3,000" alt="Event Image">
+          <div class="event-body">
+            <h5 class="card-title">Food & Wine Expo</h5>
+            <p class="card-text">Sun, July 20 · Kenyatta Centre</p>
+            <p class="ticket-price">Ksh 3,000</p>
+            <button class="buy-btn" onclick="showImageModal('Food & Wine Expo', 3000, 'img/event12.jpg')">Buy Ticket</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Modal with Payment -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalTitle">Event Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img src="" class="img-fluid event-img-modal" alt="Event Image">
+          <div class="event-details">
+            <p id="eventDescription"></p>
+            <p><strong>Host:</strong> <span id="eventHost"></span></p>
+            <p><strong>Venue:</strong> <span id="eventVenue"></span></p>
+            <p><strong>Price:</strong> <span id="eventPrice"></span></p>
+            <div class="likes-section">
+              <span>❤️ 123 likes</span>
+            </div>
+            <button class="share-btn" onclick="shareEvent()">Share with Friend</button>
+          </div>
+          <div class="payment-section">
+            <h6 class="mt-3">Purchase Tickets</h6>
+            <div class="quantity-selector">
+              <button class="quantity-btn" onclick="adjustQuantity(-1)">-</button>
+              <input type="number" class="quantity-input" id="ticketQuantity" value="1" min="1" max="10">
+              <button class="quantity-btn" onclick="adjustQuantity(1)">+</button>
+            </div>
+            <div class="mb-3">
+              <p>Ticket Price: <span id="ticketPrice">Ksh 2,000</span> each</p>
+              <p>Grand Total: <span id="grandTotal">Ksh 2,000</span></p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Select Payment Method</label>
+              <div class="payment-option" data-method="mpesa">M-Pesa</div>
+              <div class="payment-option" data-method="airtel">Airtel Money</div>
+              <div class="payment-option" data-method="card">Credit/Debit Card</div>
+            </div>
+            <button class="confirm-purchase-btn" onclick="confirmPurchase()">Confirm Purchase</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer mt-5 text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <img src="img/logo 1.png" alt="Tiqow Logo" height="100" width="160">
+          <p class="mt-2">We connect you to the hottest events around you. Discover parties, concerts, nightlife and more. Book with ease.</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+            <li><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
+            <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>Visit Us</h5>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8455895776706!2d36.8133694!3d-1.2652204999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f175107237fcf%3A0xdf5e23288bd46cc6!2sSolami%20Limited!5e0!3m2!1sen!2ske!4v1749113911377!5m2!1sen!2ske" width="100%" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <hr class="border-light">
+      <div class="text-center pb-2">© 2025 Tiqow. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Image Modal
+    let currentPrice = 2000;
+    function showImageModal(eventTitle, price, imageSrc) {
+      currentPrice = price;
+      const modal = new bootstrap.Modal(document.getElementById('imageModal'));
+      const img = document.querySelector(`.event-img[data-event-title="${eventTitle}"]`);
+      document.querySelector('.event-img-modal').src = imageSrc || img.src;
+      document.getElementById('imageModalTitle').innerText = eventTitle;
+      document.getElementById('eventDescription').innerText = img.dataset.eventDescription;
+      document.getElementById('eventHost').innerText = img.dataset.eventHost;
+      document.getElementById('eventVenue').innerText = img.dataset.eventVenue;
+      document.getElementById('eventPrice').innerText = img.dataset.eventPrice;
+      document.getElementById('ticketQuantity').value = 1;
+      document.getElementById('ticketPrice').textContent = `Ksh ${price.toLocaleString()}`;
+      updateGrandTotal();
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      selectedPaymentMethod = null;
+      modal.show();
+    }
+
+    // Share Event
+    function shareEvent() {
+      const eventTitle = document.getElementById('imageModalTitle').innerText;
+      alert(`Sharing "${eventTitle}" with your friend! (Placeholder for email/social media sharing)`);
+    }
+
+    // Quantity Adjustment
+    function adjustQuantity(change) {
+      const input = document.getElementById('ticketQuantity');
+      let val = parseInt(input.value);
+      val = isNaN(val) ? 1 : val + change;
+      input.value = Math.min(Math.max(val, 1), 10);
+      updateGrandTotal();
+    }
+
+    // Update Grand Total
+    function updateGrandTotal() {
+      const quantity = parseInt(document.getElementById('ticketQuantity').value) || 1;
+      const total = quantity * currentPrice;
+      document.getElementById('grandTotal').textContent = `Ksh ${total.toLocaleString()}`;
+    }
+
+    // Payment Method Selection
+    let selectedPaymentMethod = null;
+    document.querySelectorAll('.payment-option').forEach(option => {
+      option.addEventListener('click', () => {
+        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedPaymentMethod = option.dataset.method;
+      });
+    });
+
+    // Confirm Purchase
+    function confirmPurchase() {
+      if (!selectedPaymentMethod) {
+        alert('Please select a payment method.');
+        return;
+      }
+      const eventTitle = document.getElementById('imageModalTitle').innerText;
+      const quantity = document.getElementById('ticketQuantity').value;
+      alert(`Success! You've purchased ${quantity} ticket(s) for "${eventTitle}" via ${selectedPaymentMethod} for ${document.getElementById('grandTotal').textContent}.`);
+      bootstrap.Modal.getInstance(document.getElementById('imageModal')).hide();
+    }
+
+    // Update grand total on quantity input change
+    document.getElementById('ticketQuantity').addEventListener('input', updateGrandTotal);
+
+    // Image Modal for Event Image Click
+    document.querySelectorAll('.event-img').forEach(img => {
+      img.addEventListener('click', () => {
+        showImageModal(img.dataset.eventTitle, parseInt(img.dataset.eventPrice.replace(/[^0-9]/g, '')), img.src);
+      });
+    });
+  </script>
+</body>
+</html>

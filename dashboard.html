@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tiqow - User Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .sidebar {
+      width: 220px;
+      height: 100vh;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 28px;
+      color: white;
+    }
+
+    .nav-link {
+      padding: 10px 0;
+      font-size: 16px;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+    }
+
+    .text-warning {
+      color: #ffc107; /* fixed warning color */
+    }
+
+    .text-success {
+      color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar bg-success text-white p-4">
+      <a href="index.html">
+  <img src="img/logo 1.png" alt="TicketMaster Logo" height="55" width="145" />
+</a>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link text-white" href="#">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Events</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Tickets</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Users</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Companies</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>User Management</h4>
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addUserModal">
+          <span class="me-2">+</span> Add User
+        </button>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="input-group mb-3" style="max-width: 400px;">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search users...">
+        <button class="btn btn-outline-secondary" id="searchBtn">Search</button>
+      </div>
+
+      <table class="table table-bordered" id="userTable">
+        <thead class="table-light">
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Msisdn</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Empty to start fresh -->
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination" id="pagination"></ul>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal fade" id="editUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form class="modal-content" id="editUserForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editRowIndex">
+          <div class="mb-3">
+            <label>User ID</label>
+            <input type="text" class="form-control" id="editUserId" readonly>
+          </div>
+          <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" id="editName" required>
+          </div>
+          <div class="mb-3">
+            <label>Msisdn</label>
+            <input type="text" class="form-control" id="editMsisdn" required>
+          </div>
+          <div class="mb-3">
+            <label>Company</label>
+            <input type="text" class="form-control" id="editCompany" required>
+          </div>
+          <div class="mb-3">
+            <label>Status</label>
+            <select class="form-control" id="editStatus" required>
+              <option>Active</option>
+              <option>Pending</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Role</label>
+            <select class="form-control" id="editRole" required>
+              <option>User</option>
+              <option>Editor</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div class="modal fade" id="addUserModal" tabindex="-1">
+    <div class="modal-dialog">
+      <form class="modal-content" id="addUserForm">
+        <div class="modal-header">
+          <h5 class="modal-title">Add User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>User ID</label>
+            <input type="text" class="form-control" id="addUserId" readonly>
+          </div>
+          <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" id="addName" required>
+          </div>
+          <div class="mb-3">
+            <label>Msisdn</label>
+            <input type="text" class="form-control" id="addMsisdn" required>
+          </div>
+          <div class="mb-3">
+            <label>Company</label>
+            <input type="text" class="form-control" id="addCompany" required>
+          </div>
+          <div class="mb-3">
+            <label>Status</label>
+            <select class="form-control" id="addStatus" required>
+              <option>Active</option>
+              <option>Pending</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Role</label>
+            <select class="form-control" id="addRole" required>
+              <option>User</option>
+              <option>Editor</option>
+              <option>Admin</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" type="submit">Add User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const userTable = document.getElementById("userTable").getElementsByTagName("tbody")[0];
+    const addUserModal = document.getElementById('addUserModal');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const pagination = document.getElementById('pagination');
+
+    let currentPage = 1;
+    const rowsPerPage = 5;
+
+    // Auto-generate User ID when opening Add User Modal
+    addUserModal.addEventListener('show.bs.modal', () => {
+      const rows = userTable.rows;
+      let maxId = 0;
+      for (let i = 0; i < rows.length; i++) {
+        const id = parseInt(rows[i].cells[0].innerText, 10);
+        if (id > maxId) maxId = id;
+      }
+      const nextId = (maxId + 1).toString().padStart(3, '0');
+      document.getElementById('addUserId').value = nextId;
+      // Clear other fields on modal open
+      document.getElementById('addName').value = '';
+      document.getElementById('addMsisdn').value = '';
+      document.getElementById('addCompany').value = '';
+      document.getElementById('addStatus').value = 'Active';
+      document.getElementById('addRole').value = 'User';
+    });
+
+    // Bind Edit and Delete Buttons
+    function bindEditDeleteButtons() {
+      document.querySelectorAll(".editBtn").forEach((btn) => {
+        btn.onclick = () => {
+          const row = btn.closest("tr");
+          const actualIndex = Array.from(userTable.rows).indexOf(row);
+          document.getElementById("editRowIndex").value = actualIndex;
+          document.getElementById("editUserId").value = row.cells[0].innerText;
+          document.getElementById("editName").value = row.cells[1].innerText;
+          document.getElementById("editMsisdn").value = row.cells[2].innerText;
+          document.getElementById("editCompany").value = row.cells[3].innerText.trim();
+          document.getElementById("editStatus").value = row.cells[4].innerText.trim();
+          document.getElementById("editRole").value = row.cells[5].innerText;
+        };
+      });
+
+      document.querySelectorAll(".deleteBtn").forEach((btn) => {
+        btn.onclick = () => {
+          if (confirm("Are you sure you want to delete this user?")) {
+            const row = btn.closest("tr");
+            row.remove();
+            displayTablePage(currentPage);
+          }
+        };
+      });
+    }
+
+    // Get rows that match current search filter (for pagination and edit)
+    function getVisibleRows() {
+      const filter = searchInput.value.toLowerCase();
+      return Array.from(userTable.rows).filter(row => {
+        const text = Array.from(row.cells).slice(0, -1).map(td => td.innerText.toLowerCase()).join(' ');
+        return text.includes(filter);
+      });
+    }
+
+    // Display table page with pagination
+    function displayTablePage(page = 1) {
+      const rows = getVisibleRows();
+      const totalPages = Math.ceil(rows.length / rowsPerPage) || 1;
+      currentPage = Math.min(Math.max(page, 1), totalPages);
+
+      // Hide all rows initially
+      Array.from(userTable.rows).forEach(row => row.style.display = 'none');
+
+      // Show only rows for current page
+      rows.forEach((row, idx) => {
+        if (idx >= (currentPage - 1) * rowsPerPage && idx < currentPage * rowsPerPage) {
+          row.style.display = '';
+        }
+      });
+
+      renderPagination(totalPages);
+      bindEditDeleteButtons();
+    }
+
+    // Render pagination buttons
+    function renderPagination(totalPages) {
+      pagination.innerHTML = '';
+
+      function createPageItem(text, page, disabled = false, active = false) {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled ? 'disabled' : ''} ${active ? 'active' : ''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.innerText = text;
+        a.onclick = (e) => {
+          e.preventDefault();
+          if (!disabled) {
+            displayTablePage(page);
+          }
+        };
+        li.appendChild(a);
+        return li;
+      }
+
+      // Prev button
+      pagination.appendChild(createPageItem('Previous', currentPage - 1, currentPage === 1));
+
+      // Page buttons (show max 5 pages for simplicity)
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+      for (let i = startPage; i <= endPage; i++) {
+        pagination.appendChild(createPageItem(i, i, false, i === currentPage));
+      }
+
+      // Next button
+      pagination.appendChild(createPageItem('Next', currentPage + 1, currentPage === totalPages));
+    }
+
+    // Search function
+    function filterTable() {
+      currentPage = 1; // reset to page 1 on new search
+      displayTablePage(currentPage);
+    }
+
+    searchBtn.addEventListener('click', filterTable);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') filterTable();
+    });
+
+    // Handle Edit User Form submit
+    document.getElementById("editUserForm").onsubmit = (e) => {
+      e.preventDefault();
+      const rowIndex = parseInt(document.getElementById("editRowIndex").value, 10);
+      const rows = getVisibleRows();
+      const row = rows[rowIndex];
+      if (!row) return;
+
+      row.cells[1].innerText = document.getElementById("editName").value;
+      row.cells[2].innerText = document.getElementById("editMsisdn").value;
+      row.cells[3].innerHTML = "<strong>" + document.getElementById("editCompany").value + "</strong>";
+      const statusVal = document.getElementById("editStatus").value;
+      row.cells[4].innerHTML = statusVal === "Active"
+        ? '<span class="text-success">Active</span>'
+        : '<span class="text-warning">Pending</span>';
+      row.cells[5].innerText = document.getElementById("editRole").value;
+
+      const editModal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+      editModal.hide();
+
+      displayTablePage(currentPage);
+    };
+
+    // Handle Add User Form submit
+    document.getElementById("addUserForm").onsubmit = (e) => {
+      e.preventDefault();
+
+      const userId = document.getElementById("addUserId").value;
+      const name = document.getElementById("addName").value;
+      const msisdn = document.getElementById("addMsisdn").value;
+      const company = document.getElementById("addCompany").value;
+      const statusVal = document.getElementById("addStatus").value;
+      const role = document.getElementById("addRole").value;
+
+      const newRow = userTable.insertRow();
+      newRow.innerHTML = `
+        <td>${userId}</td>
+        <td>${name}</td>
+        <td>${msisdn}</td>
+        <td><strong>${company}</strong></td>
+        <td>${statusVal === "Active" 
+          ? '<span class="text-success">Active</span>' 
+          : '<span class="text-warning">Pending</span>'}</td>
+        <td>${role}</td>
+        <td>
+          <a href="#" class="editBtn me-2" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</a>
+          <a href="#" class="deleteBtn text-danger">Delete</a>
+        </td>
+      `;
+
+      const addModal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
+      addModal.hide();
+
+      // Refresh table view and pagination
+      displayTablePage(currentPage);
+    };
+
+    // Initial setup
+    window.onload = () => {
+      displayTablePage(1);
+    };
+  </script>
+   <div class="text-center pb-3">&copy; 2025 Tiqow. All rights reserved.</div>
+</body>
+</html>

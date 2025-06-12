@@ -3,193 +3,136 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Account - Ticketing System</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <title>My Tickets - Tiqow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
-    body {
-      background-color: #f4fdf7;
-    }
-    .modal-content img.poster {
-      max-width: 120px;
-      height: auto;
-      margin-bottom: 1rem;
-    }
+    body { background-color: #e7efe0; font-family: Arial, sans-serif; }
+    .navbar { background-color: #28a745; }
     .ticket-card {
-      position: relative;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border: 1px solid #a0d6b4;
-      border-radius: 10px;
-      background-color: #eafaf1;
-      width: 48%;
-      display: inline-block;
-      margin-right: 2%;
-      vertical-align: top;
-    }
-    .ticket-card img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .view-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-    .share-btns i {
-      font-size: 1.5rem;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-    .modal-body .qr {
-      margin-top: 1rem;
-    }
-    .pdf-content {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       padding: 20px;
-      border-radius: 10px;
-      background: #eafaf1;
-      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
     }
-    .pdf-content img {
-      max-width: 100px;
+    .event-photo {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .qr-code {
+      width: 100px;
+      height: 100px;
+    }
+    .ticket-actions button {
+      margin-right: 10px;
       margin-bottom: 10px;
     }
-    .pdf-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .footer {
+      background-color: #20a96f;
+      padding: 40px 0;
+      color: white;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="d-flex justify-content-between align-items-center p-3 bg-success text-white">
-    <div class="logo fw-bold fs-4">MyTickets</div>
-    <nav>
-      <a href="index.html" class="text-white me-3">Home</a>
-      <a href="my-tickets.html" class="text-white me-3">My Tickets</a>
-      <a href="logout.html" class="text-white">Logout</a>
-    </nav>
-  </header>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  <a class="navbar-brand" href="index.html">
+    <img src="img/logo 1.png" alt="Tiqow Logo" style="height: 50px;">
+  </a>
+</nav>
 
-  <!-- Main Content -->
-  <div class="container mt-4">
-    <h2 class="mb-4">My Account</h2>
+<div class="container my-5">
+  <h2 class="text-center mb-4">My Tickets</h2>
 
-    <!-- Purchased Tickets -->
-    <div class="tickets">
-      <h4>Purchased Tickets</h4>
-
-      <div class="ticket-card">
-        <div class="event-info">
-          <strong>Event:</strong> Coastal Beats Festival<br/>
-          <strong>Date:</strong> 2025-07-20<br/>
-          <strong>Venue:</strong> Mombasa Beach Grounds
-        </div>
-        <img src="img/event1.jpg" alt="Ticket Image">
-        <button class="btn btn-outline-success view-btn" onclick="viewTicket('001','Coastal Beats Festival','Mombasa Beach Grounds','Coastal Events Ltd','1500','img/event1.jpg','2025-07-20','5:00 PM')">View</button>
+  <!-- Ticket Card -->
+  <div class="ticket-card" id="ticket">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="img/event1.jpg" alt="Event Photo" class="event-photo">
       </div>
-
-      <div class="ticket-card">
-        <div class="event-info">
-          <strong>Event:</strong> Nairobi Tech Summit<br/>
-          <strong>Date:</strong> 2025-08-10<br/>
-          <strong>Venue:</strong> KICC, Nairobi
-        </div>
-        <img src="img/event2.jpg" alt="Ticket Image">
-        <button class="btn btn-outline-success view-btn" onclick="viewTicket('002','Nairobi Tech Summit','KICC, Nairobi','Techies Inc.','2000','img/event2.jpg','2025-08-10','9:00 AM')">View</button>
+      <div class="col-md-5">
+        <h4>Summer Music Fest</h4>
+        <p><strong>Date:</strong> June 15, 2025</p>
+        <p><strong>Venue:</strong> Nairobi Arena</p>
+        <p><strong>Holder:</strong> John Doe</p>
+        <p><strong>Ticket No:</strong> A12345</p>
       </div>
-
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="ticketModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3">
-        <div class="modal-header">
-          <h5 class="modal-title">Ticket Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="pdf-content" id="pdfContent">
-            <div class="pdf-header">
-              <img src="logo.png" alt="Logo">
-              <div>
-                <strong>MyTickets Ltd</strong><br>
-                info@mytickets.co.ke<br>
-                +254 700 123 456
-              </div>
-            </div>
-            <hr>
-            <p><strong>Buyer:</strong> John Doe<br>Email: john@example.com<br>Phone: +254712345678</p>
-            <img id="ticketPoster" class="poster" src="" alt="Event Poster">
-            <p><strong>Ticket No:</strong> <span id="ticketNumber"></span></p>
-            <p><strong>Event:</strong> <span id="eventName"></span></p>
-            <p><strong>Venue:</strong> <span id="venue"></span></p>
-            <p><strong>Host:</strong> <span id="host"></span></p>
-            <p><strong>Date:</strong> <span id="eventDate"></span></p>
-            <p><strong>Time:</strong> <span id="eventTime"></span></p>
-            <p><strong>Price:</strong> KES <span id="price"></span></p>
-            <div class="qr">
-              <strong>QR Code:</strong>
-              <canvas id="qrCodeCanvas"></canvas>
-            </div>
-          </div>
-          <div class="mt-3 share-btns">
-            <i class="bi bi-whatsapp text-success" title="Share on WhatsApp"></i>
-            <i class="bi bi-envelope text-primary" title="Email Ticket"></i>
-            <i class="bi bi-chat-dots text-info" title="Send via SMS"></i>
-            <i class="bi bi-download text-dark" title="Download PDF" onclick="downloadPDF()"></i>
-          </div>
-        </div>
+      <div class="col-md-3 text-center">
+        <div id="qrcode" class="d-inline-block qr-code"></div>
+        <p class="mt-2">Scan at the gate</p>
       </div>
     </div>
+    <hr>
+    <div class="ticket-actions text-end">
+      <button class="btn btn-success" onclick="downloadPDF()">Download PDF</button>
+      <button class="btn btn-primary" onclick="shareEmail()">Email</button>
+      <button class="btn btn-info text-white" onclick="shareWhatsApp()">WhatsApp</button>
+      <button class="btn btn-dark" onclick="shareSMS()">SMS</button>
+    </div>
   </div>
+</div>
 
-  <!-- Footer -->
-<footer class="mt-4 bg-success text-white text-center p-3">
-  <div>&copy; 2025 Tiqow. All rights reserved.</div>
-  <div>Contact us: info@tiqow.co.ke | +254 700 123 456</div>
+<footer class="footer text-center">
+  <div class="container" style="background-color: #28a745;">
+    <img src="img/logo 1.png" alt="Tiqow Logo" class="mb-3" width="150">
+    <p>Contact us: info@tiqow.com | +254 712 345 678</p>
+    <p>© 2025 Tiqow. All rights reserved.</p>
+  </div>
 </footer>
 
-  <!-- Script -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function viewTicket(id, name, venue, host, price, imgSrc, date, time) {
-      document.getElementById('ticketNumber').textContent = id;
-      document.getElementById('eventName').textContent = name;
-      document.getElementById('venue').textContent = venue;
-      document.getElementById('host').textContent = host;
-      document.getElementById('price').textContent = price;
-      document.getElementById('eventDate').textContent = date;
-      document.getElementById('eventTime').textContent = time;
-      document.getElementById('ticketPoster').src = imgSrc;
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-      const qrData = `Ticket No: ${id}\nEvent: ${name}\nVenue: ${venue}\nHost: ${host}\nDate: ${date} ${time}\nPrice: KES ${price}\nBuyer: John Doe\nEmail: john@example.com\nPhone: +254712345678`;
-      QRCode.toCanvas(document.getElementById('qrCodeCanvas'), qrData, function (error) {
-        if (error) console.error(error);
-      });
+<script>
+  // Generate QR code
+  new QRCode(document.getElementById("qrcode"), {
+    text: "Ticket#A12345|John Doe|Summer Music Fest",
+    width: 100,
+    height: 100
+  });
 
-      const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
-      modal.show();
-    }
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const logoImg = "img/logo 1.png";
+    const eventImg = "img/event1.jpg";
 
-    function downloadPDF() {
-      const element = document.getElementById("pdfContent");
-      html2pdf().from(element).set({
-        margin: 0.5,
-        filename: 'ticket.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-      }).save();
-    }
-  </script>
+    doc.addImage(logoImg, 'PNG', 10, 10, 40, 20);
+    doc.setFontSize(14);
+    doc.text("Tiqow Event Ticket", 60, 20);
+    doc.setFontSize(12);
+    doc.text("Event: Summer Music Fest", 10, 40);
+    doc.text("Date: June 15, 2025", 10, 50);
+    doc.text("Venue: Nairobi Arena", 10, 60);
+    doc.text("Holder: John Doe", 10, 70);
+    doc.text("Ticket No: A12345", 10, 80);
+    doc.addImage(eventImg, 'JPEG', 10, 90, 60, 40);
+    doc.text("Contact: info@tiqow.com | +254 712 345 678", 10, 140);
+    doc.save("ticket_A12345.pdf");
+  }
 
+  function shareEmail() {
+    const subject = encodeURIComponent("TiQow Ticket: Summer Music Fest");
+    const body = encodeURIComponent("Here is your ticket for Summer Music Fest on June 15, 2025.\nTicket No: A12345");
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function shareWhatsApp() {
+    const msg = encodeURIComponent("TiQow Ticket - Summer Music Fest on June 15, 2025.\nTicket No: A12345");
+    window.open(`https://wa.me/?text=${msg}`, '_blank');
+  }
+
+  function shareSMS() {
+    const msg = encodeURIComponent("TiQow Ticket: Summer Music Fest on June 15. Ticket No: A12345");
+    window.location.href = `sms:?body=${msg}`;
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,166 @@
+/* General Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2fdf4;
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+h2, h4 {
+  color: #14532d;
+}
+
+/* Header */
+header {
+  background-color: #14532d;
+  color: #fff;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+nav a {
+  color: #d1fae5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #34d399;
+}
+
+/* Main Container */
+.container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* Profile Info */
+.profile-info {
+  margin-bottom: 2rem;
+  background: #e6f4ea;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+}
+
+.profile-info div {
+  margin: 0.5rem 0;
+}
+
+.edit-btn {
+  margin-top: 1rem;
+  background: #14532d;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: #0f3f24;
+}
+
+/* Edit Form */
+.edit-profile {
+  margin-bottom: 2rem;
+  background: #ecfdf5;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid #d1fae5;
+}
+
+.edit-profile form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.edit-profile form input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.edit-profile .btn {
+  margin-top: 1rem;
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+}
+
+.edit-profile .btn:hover {
+  background: #15803d;
+}
+
+/* Ticket Cards */
+.tickets {
+  margin-top: 2rem;
+}
+
+.ticket-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0fdf4;
+  border: 1px solid #d1fae5;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.ticket-card img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-left: 1rem;
+}
+
+.ticket-card .event-info {
+  flex: 1;
+}
+
+/* Footer */
+footer {
+  background: #14532d;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 4rem;
+  font-size: 0.9rem;
+  border-top: 4px solid #10b981;
+}
+
+footer div {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ticket-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ticket-card img {
+    margin: 1rem 0 0 0;
+    width: 100%;
+    height: auto;
+  }
+}

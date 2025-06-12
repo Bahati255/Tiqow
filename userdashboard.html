@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4fdf7;
+    }
+    header {
+      background-color: #28a745;
+      padding: 15px;
+      color: white;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .nav-link {
+      color: white !important;
+    }
+    .form-section {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    table {
+      background-color: #ffffff;
+    }
+    th {
+      background-color: #a0d6b4;
+    }
+    .btn-success {
+      background-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="d-flex justify-content-between align-items-center px-4">
+    <div class="logo">MyTickets Admin</div>
+    <nav>
+      <a class="nav-link d-inline me-3" href="admin.html">Dashboard</a>
+      <a class="nav-link d-inline" href="addevent.html">Manage Events</a>
+    </nav>
+  </header>
+
+  <div class="container my-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="form-section">
+          <h5 class="mb-3">Add New User</h5>
+          <form id="addUserForm">
+            <div class="mb-2">
+              <label for="userName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="userName" required>
+            </div>
+            <div class="mb-2">
+              <label for="userEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="userEmail" required>
+            </div>
+            <div class="mb-2">
+              <label for="userPhone" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="userPhone" required>
+            </div>
+            <div class="mb-3">
+              <label for="userRole" class="form-label">Role</label>
+              <select class="form-select" id="userRole">
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Add User</button>

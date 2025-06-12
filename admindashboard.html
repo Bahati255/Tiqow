@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - MyTickets</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #f4fdf7;
+      color: #333;
+    }
+    .navbar {
+      background-color: #28a745;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .dashboard-box {
+      background: #eafaf1;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .dashboard-box h5 {
+      font-weight: bold;
+      color: #28a745;
+    }
+    .top-button {
+      margin-top: -2.5rem;
+    }
+    .event-table th, .event-table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  <a class="navbar-brand" href="index.html">
+    <img src="img/logo 1.png" alt="Logo" height="50">
+  </a>
+  <a href="newadminevent.html" class="btn btn-light text-success fw-semibold top-button">
+      <i class="bi bi-plus-circle"></i> Manage Events
+    </a>
+  </nav>  
+
+  <!-- Admin Dashboard -->
+  <div class="container mt-4">
+    <h2 class="mb-4">Admin Dashboard Overview</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="dashboard-box">
+          <h5>Total Events</h5>
+          <p class="display-6">12</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="dashboard-box">
+          <h5>Upcoming Events</h5>
+          <p class="display-6">5</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="dashboard-box">
+          <h5>Past Events</h5>
+          <p class="display-6">7</p>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="mt-5">Ticket Sales Summary</h4>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="dashboard-box">
+          <h6>Tickets Sold</h6>
+          <p class="fs-4">850</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dashboard-box">
+          <h6>Tickets Printed</h6>
+          <p class="fs-4">1000</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dashboard-box">
+          <h6>Tickets Remaining</h6>
+          <p class="fs-4">150</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="dashboard-box">
+          <h6>Discounts Applied</h6>
+          <p class="fs-4">3 Active</p>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="mt-5">Event Details</h4>
+    <table class="table table-striped table-hover event-table">
+      <thead class="table-success">
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Tickets</th>
+          <th>Sold</th>
+          <th>Remaining</th>
+          <th>Discount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Coastal Beats Festival</td>
+          <td>2025-07-20</td>
+          <td>500</td>
+          <td>420</td>
+          <td>80</td>
+          <td>10% Off</td>
+        </tr>
+        <tr>
+          <td>Nairobi Tech Summit</td>
+          <td>2025-08-10</td>
+          <td>500</td>
+          <td>430</td>
+          <td>70</td>
+          <td>15% Off</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-5">
+      <h4>Admin Controls</h4>
+      <a href="userdashboard.html" class="btn btn-outline-success me-3">
+        <i class="bi bi-person-plus"></i> Add User/Admin
+      </a>
+      <a href="discounts.html" class="btn btn-outline-success">
+        <i class="bi bi-tag-fill"></i> Manage Discounts
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+<footer class="mt-4 bg-success text-white text-center p-3">
+  <div>&copy; 2025 Tiqow. All rights reserved.</div>
+  <div>Contact us: info@tiqow.co.ke | +254 700 123 456</div>
+</footer>
+
+</body>
+</html>

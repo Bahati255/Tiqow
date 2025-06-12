@@ -8,21 +8,22 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
   <style>
     body { background: #f0fff4; }
+    .navbar {
+      background-color: #28a745;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
     .event-card { background: #e6fff0; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border: 1px solid #b2dfdb; }
     .event-card img { max-height: 150px; width: auto; border-radius: 8px; }
     .modal-content { background-color: #f4fdf7; }
   </style>
 </head>
 <body>
-  <header class="bg-success text-white p-3">
-    <div class="container d-flex justify-content-between">
-      <div class="fw-bold fs-4">Admin Dashboard</div>
-      <nav>
-        <a href="index.html" class="text-white me-3">Home</a>
-        <a href="addevent.html" class="text-white">Manage Events</a>
-      </nav>
-    </div>
-  </header>
+  <!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  <a class="navbar-brand" href="index.html">
+    <img src="img/logo 1.png" alt="Logo" height="50">
+  </a>
+  </nav> 
 
   <main class="container mt-4">
     <div class="d-flex justify-content-between align-items-center">
@@ -47,6 +48,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+<footer class="mt-4 bg-success text-white text-center p-3">
+  <div>&copy; 2025 Tiqow. All rights reserved.</div>
+  <div>Contact us: info@tiqow.co.ke | +254 700 123 456</div>
+</footer>
 
   <script>
     function saveEvent() {

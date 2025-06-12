@@ -119,18 +119,18 @@
   }
 
   function shareEmail() {
-    const subject = encodeURIComponent("TiQow Ticket: Summer Music Fest");
+    const subject = encodeURIComponent("Tiqow Ticket: Summer Music Fest");
     const body = encodeURIComponent("Here is your ticket for Summer Music Fest on June 15, 2025.\nTicket No: A12345");
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   }
 
   function shareWhatsApp() {
-    const msg = encodeURIComponent("TiQow Ticket - Summer Music Fest on June 15, 2025.\nTicket No: A12345");
+    const msg = encodeURIComponent("Tiqow Ticket - Summer Music Fest on June 15, 2025.\nTicket No: A12345");
     window.open(`https://wa.me/?text=${msg}`, '_blank');
   }
 
   function shareSMS() {
-    const msg = encodeURIComponent("TiQow Ticket: Summer Music Fest on June 15. Ticket No: A12345");
+    const msg = encodeURIComponent("Tiqow Ticket: Summer Music Fest on June 15. Ticket No: A12345");
     window.location.href = `sms:?body=${msg}`;
   }
 </script>

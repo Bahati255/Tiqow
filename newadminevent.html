@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Add Events</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
+  <style>
+    body { background: #f0fff4; }
+    .event-card { background: #e6fff0; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border: 1px solid #b2dfdb; }
+    .event-card img { max-height: 150px; width: auto; border-radius: 8px; }
+    .modal-content { background-color: #f4fdf7; }
+  </style>
+</head>
+<body>
+  <header class="bg-success text-white p-3">
+    <div class="container d-flex justify-content-between">
+      <div class="fw-bold fs-4">Admin Dashboard</div>
+      <nav>
+        <a href="index.html" class="text-white me-3">Home</a>
+        <a href="addevent.html" class="text-white">Manage Events</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <h3>Add New Event</h3>
+      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eventModal">Add Event</button>
+    </div>
+    <div id="eventList" class="mt-4"></div>
+  </main>
+
+  <!-- Add Event Modal -->
+  <div class="modal fade" id="eventModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content p-3">
+        <h5 class="modal-title mb-3">New Event</h5>
+        <input type="text" class="form-control mb-2" id="eventName" placeholder="Event Name">
+        <input type="text" class="form-control mb-2" id="host" placeholder="Host">
+        <input type="text" class="form-control mb-2" id="venue" placeholder="Venue">
+        <input type="number" class="form-control mb-2" id="price" placeholder="Price">
+        <input type="date" class="form-control mb-2" id="date">
+        <input type="file" class="form-control mb-3" id="imageInput" accept="image/*">
+        <button class="btn btn-success w-100" onclick="saveEvent()" data-bs-dismiss="modal">Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function saveEvent() {
+      const name = document.getElementById('eventName').value;
+      const host = document.getElementById('host').value;
+      const venue = document.getElementById('venue').value;
+      const price = document.getElementById('price').value;
+      const date = document.getElementById('date').value;
+      const imageInput = document.getElementById('imageInput');
+
+      if (!name || !host || !venue || !price || !date || !imageInput.files.length) {
+        alert('All fields required.');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const newEvent = {
+          id: Date.now(),
+          name, host, venue, price, date,
+          image: reader.result
+        };
+
+        const events = JSON.parse(localStorage.getItem('events') || '[]');
+        events.push(newEvent);
+        localStorage.setItem('events', JSON.stringify(events));
+        renderEvents();
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    }
+
+    function renderEvents() {
+      const container = document.getElementById('eventList');
+      container.innerHTML = '';
+      const events = JSON.parse(localStorage.getItem('events') || '[]');
+
+      events.forEach(evt => {
+        const card = document.createElement('div');
+        card.className = 'event-card row';
+        card.innerHTML = `
+          <div class="col-md-4"><img src="${evt.image}" class="img-fluid"></div>
+          <div class="col-md-8">
+            <h5>${evt.name}</h5>
+            <p><strong>Host:</strong> ${evt.host}<br><strong>Venue:</strong> ${evt.venue}<br><strong>Date:</strong> ${evt.date}<br><strong>Price:</strong> KES ${evt.price}</p>
+          </div>`;
+        container.appendChild(card);
+      });
+    }
+
+    window.onload = renderEvents;
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

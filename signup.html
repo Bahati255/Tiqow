@@ -3,187 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up - Tiqow</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+  <title>Sign Up - MyTickets</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"/>
   <style>
     body {
-      background: #f4f4f4;
-      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4fdf7;
     }
-    .signup-container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: row;
+    .navbar {
+      background-color: #28a745;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .carousel-side {
-      flex: 1;
-      position: relative;
-    }
-    .carousel img {
-      height: 100vh;
-      object-fit: cover;
-      width: 100%;
-      opacity: 0.85;
-    }
-    .form-side {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .form-section {
+      background: #ffffff;
       padding: 2rem;
-      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
     }
-    .signup-box {
-      width: 100%;
-      max-width: 450px;
+    .carousel-container {
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      opacity: 0.95;
     }
-    .signup-box h2 {
-      margin-bottom: 1.5rem;
-      font-weight: 600;
-    }
-    .form-control {
-      border-radius: 0.4rem;
-      margin-bottom: 1rem;
-    }
-    .btn-primary {
+    .carousel-item img {
+      object-fit: cover;
+      height: 100%;
       width: 100%;
     }
-    .form-footer {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .form-footer a {
-      color: #198754;
-    }
-    .header, .footer {
-      background-color: #198754;
-      color: #fff;
-      padding: 0.8rem 2rem;
-    }
-    .logo {
-      font-weight: bold;
-      font-size: 1.5rem;
+    .otp-modal .modal-content {
+      background-color: #eafaf1;
+      border-radius: 12px;
+      border: 1px solid #a0d6b4;
     }
   </style>
 </head>
 <body>
 
- <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #28a745;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.html"><img src="img/logo 1.png" height="55" width="145" alt="Tiqow Logo"></a>
-  </div>
-</nav>
-<div class="signup-container">
-    <!-- Carousel Side -->
-    <div class="carousel-side">
-      <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="img/event1.jpg" class="d-block w-100" alt="...">
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+  <a class="navbar-brand" href="index.html">
+    <img src="img/logo 1.png" alt="Logo" height="50">
+  </a>
+  </nav>  
+
+<div class="container mt-4">
+  <div class="row align-items-center" style="min-height: 80vh;">
+    
+    <!-- Signup Form -->
+    <div class="col-md-6">
+      <div class="form-section">
+        <h3 class="text-success mb-4">Create Your Account</h3>
+        <form id="signupForm">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullName" required>
           </div>
-          <div class="carousel-item">
-            <img src="img/event2.jpg" class="d-block w-100" alt="...">
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="phoneNumber" required>
           </div>
-          <div class="carousel-item">
-            <img src="img/event3.jpg" class="d-block w-100" alt="...">
+          <div class="mb-3">
+            <label for="emailAddress" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="emailAddress" required>
           </div>
+          <div class="mb-3">
+            <label for="password1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password1" required minlength="6">
+          </div>
+          <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" required>
+            <div class="text-danger mt-1" id="matchMessage"></div>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="terms" required>
+            <label class="form-check-label" for="terms">I agree to the Terms & Conditions</label>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Sign Up</button>
+        </form>
+        <div class="text-center mt-3">
+          Already have an account? <a href="login.html" class="text-success">Login</a>
         </div>
       </div>
     </div>
 
-    <!-- Form Side -->
-    <div class="form-side">
-      <div class="signup-box">
-        <h2>Create Your Account</h2>
-        <form onsubmit="handleSignup(event)">
-          <input type="text" class="form-control" placeholder="Full Name" required>
-          <input type="email" class="form-control" placeholder="Email Address" required>
-          <input type="tel" class="form-control" placeholder="Phone Number" required>
-          <input type="password" class="form-control" placeholder="Password" id="password" required>
-          <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword" required>
-
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-
-          <div class="text-center mt-3">
-            <p>Or sign up with:</p>
-            <button type="button" class="btn btn-outline-dark me-2"><i class="bi bi-google"></i></button>
-            <button type="button" class="btn btn-outline-dark"><i class="bi bi-facebook"></i></button>
+    <!-- Carousel -->
+    <div class="col-md-6 d-none d-md-block">
+      <div id="signupCarousel" class="carousel slide carousel-container">
+        <div class="carousel-inner h-100">
+          <div class="carousel-item active h-100">
+            <img src="img/event1.jpg" class="d-block w-100" alt="Event 1">
           </div>
-
-          <div class="form-footer">
-            Already have an account? <a href="login.html">Login</a>
+          <div class="carousel-item h-100">
+            <img src="img/event2.jpg" class="d-block w-100" alt="Event 2">
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer text-center">
-    <div>&copy; 2025 Tiqow. All rights reserved.</div>
-  </footer>
-
-<!-- OTP Modal -->
-<div class="modal fade" id="otpModal" tabindex="-1" aria-labelledby="otpModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Phone Verification</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <p>An OTP has been sent to your phone number. Enter it below to complete registration.</p>
-        <input type="text" class="form-control mb-3" placeholder="Enter OTP" id="otpInput">
-        <button class="btn btn-green w-100" onclick="verifyOtp()">Verify OTP</button>
+          <div class="carousel-item h-100">
+            <img src="img/event3.jpg" class="d-block w-100" alt="Event 3">
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- OTP Modal -->
+<div class="modal fade otp-modal" id="otpModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title">OTP Verification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>An OTP has been sent to your phone number. Please enter it below to verify your account.</p>
+        <input type="text" class="form-control mb-3" placeholder="Enter OTP">
+        <button class="btn btn-success w-100">Verify OTP</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Footer -->
+<footer class="mt-4 bg-success text-white text-center p-3">
+  <div>&copy; 2025 Tiqow. All rights reserved.</div>
+  <div>Contact us: info@tiqow.co.ke | +254 700 123 456</div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function showOtpPopup() {
-    const pass = document.getElementById('password').value;
-    const confirm = document.getElementById('confirmPassword').value;
-    const mismatch = document.getElementById('passwordMismatch');
-    if (pass !== confirm) {
-      mismatch.classList.remove('d-none');
-    } else {
-      mismatch.classList.add('d-none');
-      new bootstrap.Modal(document.getElementById('otpModal')).show();
-    }
-  }
-</script>
+  const form = document.getElementById('signupForm');
+  const pass1 = document.getElementById('password1');
+  const pass2 = document.getElementById('password2');
+  const matchMessage = document.getElementById('matchMessage');
 
-
-<script>
-  document.getElementById('signupForm').addEventListener('submit', function(e) {
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const pass = document.getElementById('password').value;
-    const confirm = document.getElementById('confirmPassword').value;
-
-    if (pass !== confirm) {
-      alert("Passwords do not match.");
+    if (pass1.value !== pass2.value) {
+      matchMessage.textContent = 'Passwords do not match!';
       return;
     }
-
-    // Show OTP modal (you'd send OTP via backend in real usage)
+    matchMessage.textContent = '';
     const otpModal = new bootstrap.Modal(document.getElementById('otpModal'));
     otpModal.show();
   });
-
-  function verifyOtp() {
-    const otp = document.getElementById('otpInput').value;
-    if (otp.trim() === "") {
-      alert("Please enter OTP.");
-      return;
-    }
-    alert("OTP verified. Redirecting to your account...");
-    window.location.href = "dashboard.html"; // Redirect to account/dashboard
-  }
 </script>
+
 </body>
 </html>

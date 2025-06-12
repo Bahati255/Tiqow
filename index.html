@@ -76,36 +76,49 @@
 </nav>
 
 <!-- Stories -->
-<div class="container mt-3">
+<div class="container my-4">
   <div class="row text-center g-3">
     <div class="col"><img src="img/afro.jpg" alt="Events" class="circle-img" onclick="showStory('Events', 'img/afro.jpg')"><div>Events</div></div>
     <div class="col"><img src="img/femme.jpg" alt="Happy Hour" class="circle-img" onclick="showStory('Happy Hour', 'img/femme.jpg')"><div>Happy Hour</div></div>
     <div class="col"><img src="img/Latino.jpg" alt="Night Life" class="circle-img" onclick="showStory('Night Life', 'img/Latino.jpg')"><div>Night Life</div></div>
-    <div class="col"><img src="img/extra 1.jpg" alt="Sports" class="circle-img" onclick="showStory('Sports', 'img/extra 1.jpg')"><div>Sports</div></div>
+    <div class="col"><img src="img/extra 1.jpg" alt="Sports Bar" class="circle-img" onclick="showStory('Sports Bar', 'img/extra 1.jpg')"><div>Sports Bar</div></div>
   </div>
 </div>
 
 <!-- Story Modal -->
-<div class="modal fade" id="storyModal" tabindex="-1">
+<div class="modal fade" id="storyModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title" id="storyTitle"></h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body"><img id="storyImage" src="" class="img-fluid rounded"></div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="storyTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="storyImage" src="" class="img-fluid rounded">
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Carousel -->
-<div class="container my-4">
+<div class="container">
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="img/car1.jpg" alt=""></div>
-      <div class="swiper-slide"><img src="img/car2.jpg" alt=""></div>
-      <div class="swiper-slide"><img src="img/event3.jpg" alt=""></div>
+      <div class="swiper-slide"><img src="img/car1.jpg" alt="Image 1"></div>
+      <div class="swiper-slide"><img src="img/car2.jpg" alt="Image 2"></div>
+      <div class="swiper-slide"><img src="img/event2.jpg" alt="Image 3"></div>
+      <div class="swiper-slide"><img src="img/event7.jpg" alt="Image 4"></div>
+      <div class="swiper-slide"><img src="img/event4.jpg" alt="Image 5"></div>
+      <div class="swiper-slide"><img src="img/event5.jpg" alt="Image 6"></div>
+      <div class="swiper-slide"><img src="img/event8.jpg" alt="Image 7"></div>
+      <div class="swiper-slide"><img src="img/event3.jpg" alt="Image 8"></div>
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
   </div>
 </div>
+
 
 <!-- Real-time info -->
 <div class="container mt-3 d-flex justify-content-between flex-wrap">

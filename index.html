@@ -285,6 +285,7 @@
 </footer>
 
 <!-- Scripts -->
+ <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   // Update current date
   document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
@@ -319,11 +320,41 @@
       document.getElementById("totalPrice").textContent = total;
     };
   }
+  // Initialize Swiper
+   new Swiper('.mySwiper', {
+      slidesPerView: 2,
+      spaceBetween: 10,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: { slidesPerView: 3 },
+        992: { slidesPerView: 4 }
+      }
+    });
+
 
   // Show confirmation
   function confirmPurchase() {
     bootstrap.Modal.getInstance(document.getElementById("ticketModal")).hide();
     new bootstrap.Modal(document.getElementById("confirmModal")).show();
+  }
+
+  function showStory(title, image) {
+    document.getElementById('storyTitle').textContent = title;
+    document.getElementById('storyImage').src = image;
+    new bootstrap.Modal(document.getElementById('storyModal')).show();
+    setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('storyModal')).hide(), 5000);
   }
 </script>
 

@@ -1,353 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tiqow - Event Ticketing</title>
-  
-  <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <style>
-    body { background-color: #e7efe0; font-family: 'Segoe UI', sans-serif; }
-    .navbar { background-color: #28a745; }
-    .navbar .nav-link, .navbar-brand { color: #fff; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e7efe0;
+    }
+    header {
+      background-color: #28a745;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      color: white;
+    }
+    header img {
+      height: 50px;
+    }
     .search-bar {
-      background: transparent; border: 1px solid #ccc;
-      border-radius: 25px; padding: 5px 15px;
-      width: 100%; max-width: 500px;
+      max-width: 500px;
+      flex: 1;
+      margin: 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      padding: 6px 15px;
+    }
+    .nav-links a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
     }
     .circle-img {
       width: 75px; height: 75px; border-radius: 50%;
-      object-fit: cover; border: 3px solid #28a745; cursor: pointer;
+      object-fit: cover; border: 3px solid #28a745;
+      cursor: pointer;
+    }
+    .story-row {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: center;
     }
     .swiper-slide img {
       height: 120px; width: 100%; object-fit: cover;
       border-radius: 12px;
     }
     .event-card {
-      background: #fff; border-radius: 12px;
+      background: white; border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      overflow: hidden; transition: transform 0.2s;
+      overflow: hidden; padding: 10px; text-align: center;
+      transition: transform 0.2s;
     }
-    .event-card:hover { transform: scale(1.02); }
+    .event-card:hover {
+      transform: scale(1.02);
+    }
     .event-img {
       width: 100%; height: 180px; object-fit: cover;
     }
     .buy-btn {
       background-color: #28a745; color: white;
-      border: none; border-radius: 6px; padding: 8px 16px;
+      border: none; border-radius: 6px;
+      padding: 8px 16px; cursor: pointer;
     }
-    .buy-btn:hover { background-color: #218838; }
+    .buy-btn:hover {
+      background-color: #218838;
+    }
+    .modal, .modal-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; display: none;
+      justify-content: center; align-items: center;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background: white; padding: 20px;
+      border-radius: 10px; max-width: 400px;
+    }
     .footer {
-      background-color: #20a96f; color: #fff; padding: 40px 0;
+      background-color: #20a96f; color: white;
+      padding: 40px 20px;
     }
-    .footer a { color: #fff; text-decoration: none; }
-    .modal-body img {
-      width: 100%; border-radius: 10px;
-      max-height: 250px; object-fit: cover;
+    .footer a {
+      color: white; text-decoration: none;
     }
-    .quantity-btn {
-      width: 35px; height: 35px; border-radius: 50%;
-      background-color: #ddd; font-size: 20px; border: none;
+    .row-cols-4 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
-    .quantity-input {
-      width: 60px; text-align: center;
-      border-radius: 5px; border: 1px solid #ccc;
-      margin: 0 10px;
+    .col {
+      flex: 1 1 22%;
+      max-width: 22%;
+      min-width: 220px;
+    }
+    @media (max-width: 768px) {
+      .col {
+        flex: 1 1 45%;
+        max-width: 45%;
+      }
+    }
+    @media (max-width: 480px) {
+      .col {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 <body>
 
 <!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-dark px-3">
-  <a class="navbar-brand" href="index.html">
-    <img src="img/logo 1.png" alt="Logo" height="50">
-  </a>
-  <div class="collapse navbar-collapse justify-content-end">
-    <form class="d-flex me-3">
-      <input class="search-bar" type="search" placeholder="Search events..." aria-label="Search">
-    </form>
-    <ul class="navbar-nav">
-      <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Notifications</a></li>
-      <li class="nav-item"><a href="login.html" class="btn btn-light text-success">Login/Register</a></li>
-    </ul>
+<header>
+  <a href="index.html"><img src="img/logo 1.png" alt="Logo"></a>
+  <input class="search-bar" type="text" placeholder="Search events...">
+  <div class="nav-links">
+    <a href="#">Help</a>
+    <a href="#">Notifications</a>
+    <a href="login.html" style="background: white; color: #28a745; padding: 5px 10px; border-radius: 5px;">Login/Register</a>
   </div>
-</nav>
+</header>
 
 <!-- Stories -->
-<div class="container my-4">
-  <div class="row text-center g-3">
-    <div class="col"><img src="img/afro.jpg" alt="Events" class="circle-img" onclick="showStory('Events', 'img/afro.jpg')"><div>Events</div></div>
-    <div class="col"><img src="img/femme.jpg" alt="Happy Hour" class="circle-img" onclick="showStory('Happy Hour', 'img/femme.jpg')"><div>Happy Hour</div></div>
-    <div class="col"><img src="img/Latino.jpg" alt="Night Life" class="circle-img" onclick="showStory('Night Life', 'img/Latino.jpg')"><div>Night Life</div></div>
-    <div class="col"><img src="img/extra 1.jpg" alt="Sports Bar" class="circle-img" onclick="showStory('Sports Bar', 'img/extra 1.jpg')"><div>Sports Bar</div></div>
-  </div>
-</div>
-
-<!-- Story Modal -->
-<div class="modal fade" id="storyModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="storyTitle"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <img id="storyImage" src="" class="img-fluid rounded">
-      </div>
-    </div>
-  </div>
+<div class="story-row">
+  <div><img src="img/afro.jpg" class="circle-img" onclick="showStory('Events', 'img/afro.jpg')"><div>Events</div></div>
+  <div><img src="img/femme.jpg" class="circle-img" onclick="showStory('Happy Hour', 'img/femme.jpg')"><div>Happy Hour</div></div>
+  <div><img src="img/Latino.jpg" class="circle-img" onclick="showStory('Night Life', 'img/Latino.jpg')"><div>Night Life</div></div>
+  <div><img src="img/extra 1.jpg" class="circle-img" onclick="showStory('Sports Bar', 'img/extra 1.jpg')"><div>Sports Bar</div></div>
 </div>
 
 <!-- Carousel -->
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide"><img src="img/car1.jpg"></div>
+    <div class="swiper-slide"><img src="img/car2.jpg"></div>
+    <div class="swiper-slide"><img src="img/event2.jpg"></div>
+    <div class="swiper-slide"><img src="img/event10.jpg"></div>
+    <div class="swiper-slide"><img src="img/event4.jpg"></div>
+    <div class="swiper-slide"><img src="img/event5.jpg"></div>
+    <div class="swiper-slide"><img src="img/event8.jpg"></div>
+    <div class="swiper-slide"><img src="img/event3.jpg"></div>
+  </div>
+</div>
+
+<!-- Events -->
 <div class="container">
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="img/car1.jpg" alt="Image 1"></div>
-      <div class="swiper-slide"><img src="img/car2.jpg" alt="Image 2"></div>
-      <div class="swiper-slide"><img src="img/event2.jpg" alt="Image 3"></div>
-      <div class="swiper-slide"><img src="img/event7.jpg" alt="Image 4"></div>
-      <div class="swiper-slide"><img src="img/event4.jpg" alt="Image 5"></div>
-      <div class="swiper-slide"><img src="img/event5.jpg" alt="Image 6"></div>
-      <div class="swiper-slide"><img src="img/event8.jpg" alt="Image 7"></div>
-      <div class="swiper-slide"><img src="img/event3.jpg" alt="Image 8"></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
-  </div>
-</div>
-
-
-<!-- Real-time info -->
-<div class="container mt-3 d-flex justify-content-between flex-wrap">
-  <div><strong>📍 Location:</strong> <span id="userLocation">Fetching...</span></div>
-  <div><strong>📅 Date:</strong> <span id="currentDate"></span></div>
-</div>
-
-<!-- Events Grid -->
-<div class="container mt-4">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-
-    <!-- Event Card Template (repeat for 8 cards) -->
+  <div class="row-cols-4">
+    <!-- Repeatable event cards -->
     <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event1.jpg" class="event-img" onclick="openModal('Afro Night','img/event1.jpg','Carnivore Grounds','DJ Joe','2025-07-18',1500)">
-        <h5 class="mt-2">Afro Night</h5>
-        <p class="text-muted">Carnivore Grounds</p>
-        <button class="buy-btn" onclick="openModal('Afro Night','img/event1.jpg','Carnivore Grounds','DJ Joe','2025-07-18',1500)">Buy Ticket</button>
+      <div class="event-card">
+        <img src="img/event1.jpg" class="event-img">
+        <h5>Afro Night</h5>
+        <p>Carnivore Grounds</p>
+        <button class="buy-btn">Buy Ticket</button>
       </div>
     </div>
 
     <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event2.jpg" class="event-img" onclick="openModal('Beach Fest','img/event2.jpg','Nyali Beach','DJ Coco','2025-07-25',2000)">
-        <h5 class="mt-2">Beach Fest</h5>
-        <p class="text-muted">Nyali Beach</p>
-        <button class="buy-btn" onclick="openModal('Beach Fest','img/event2.jpg','Nyali Beach','DJ Coco','2025-07-25',2000)">Buy Ticket</button>
+      <div class="event-card">
+        <img src="img/event1.jpg" class="event-img">
+        <h5>Afro Night</h5>
+        <p>Carnivore Grounds</p>
+        <button class="buy-btn">Buy Ticket</button>
       </div>
     </div>
 
     <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event3.jpg" class="event-img" onclick="openModal('Sundowner','img/event3.jpg','KICC Rooftop','MC Hype','2025-08-01',1800)">
-        <h5 class="mt-2">Sundowner</h5>
-        <p class="text-muted">KICC Rooftop</p>
-        <button class="buy-btn" onclick="openModal('Sundowner','img/event3.jpg','KICC Rooftop','MC Hype','2025-08-01',1800)">Buy Ticket</button>
+      <div class="event-card">
+        <img src="img/event1.jpg" class="event-img">
+        <h5>Afro Night</h5>
+        <p>Carnivore Grounds</p>
+        <button class="buy-btn">Buy Ticket</button>
       </div>
     </div>
 
     <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event4.jpg" class="event-img" onclick="openModal('Jazz Night','img/event4.jpg','Sarit Expo Hall','Jazz Band','2025-08-10',2500)">
-        <h5 class="mt-2">Jazz Night</h5>
-        <p class="text-muted">Sarit Expo Hall</p>
-        <button class="buy-btn" onclick="openModal('Jazz Night','img/event4.jpg','Sarit Expo Hall','Jazz Band','2025-08-10',2500)">Buy Ticket</button>
+      <div class="event-card">
+        <img src="img/event1.jpg" class="event-img">
+        <h5>Afro Night</h5>
+        <p>Carnivore Grounds</p>
+        <button class="buy-btn">Buy Ticket</button>
       </div>
     </div>
 
-    <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event5.jpg" class="event-img" onclick="openModal('Reggae Heat','img/event5.jpg','Uhuru Park','Selector Blaze','2025-08-15',1200)">
-        <h5 class="mt-2">Reggae Heat</h5>
-        <p class="text-muted">Uhuru Park</p>
-        <button class="buy-btn" onclick="openModal('Reggae Heat','img/event5.jpg','Uhuru Park','Selector Blaze','2025-08-15',1200)">Buy Ticket</button>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event6.jpg" class="event-img" onclick="openModal('Ladies Night','img/event6.jpg','Skyluxx Lounge','DJ Mellow','2025-08-18',1000)">
-        <h5 class="mt-2">Ladies Night</h5>
-        <p class="text-muted">Skyluxx Lounge</p>
-        <button class="buy-btn" onclick="openModal('Ladies Night','img/event6.jpg','Skyluxx Lounge','DJ Mellow','2025-08-18',1000)">Buy Ticket</button>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/event7.jpg" class="event-img" onclick="openModal('Old Skool Jam','img/event7.jpg','Alchemist','DJ Paco','2025-08-25',1700)">
-        <h5 class="mt-2">Old Skool Jam</h5>
-        <p class="text-muted">Alchemist</p>
-        <button class="buy-btn" onclick="openModal('Old Skool Jam','img/event7.jpg','Alchemist','DJ Paco','2025-08-25',1700)">Buy Ticket</button>
-      </div>
-    </div>
-
-    <div class="col">
-      <div class="event-card p-2 text-center">
-        <img src="img/afro.jpg" class="event-img" onclick="openModal('Trap Fusion','img/event8.jpg','Westgate Rooftop','Trap DJs','2025-08-30',2200)">
-        <h5 class="mt-2">Trap Fusion</h5>
-        <p class="text-muted">Westgate Rooftop</p>
-        <button class="buy-btn" onclick="openModal('Trap Fusion','img/event8.jpg','Westgate Rooftop','Trap DJs','2025-08-30',2200)">Buy Ticket</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- View More Events -->
-<div class="text-center mt-4 mb-5">
-  <button onclick="location.href='events.html'" class="btn btn-outline-success px-4 py-2">View More Events
     
-  </button>
-</div>
-
-<!-- Ticket Purchase Modal -->
-<div class="modal fade" id="ticketModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Purchase Ticket</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <img id="modalImage" class="img-fluid mb-2 rounded" alt="Event Image">
-        <p><strong>Event:</strong> <span id="modalEvent"></span></p>
-        <p><strong>Venue:</strong> <span id="modalVenue"></span></p>
-        <p><strong>Host:</strong> <span id="modalHost"></span></p>
-        <p><strong>Date:</strong> <span id="modalDate"></span></p>
-        <p><strong>Price (KES):</strong> <span id="modalPrice"></span></p>
-        <div class="mb-3">
-          <label for="ticketQty" class="form-label">Number of Tickets:</label>
-          <input type="number" class="form-control" id="ticketQty" value="1" min="1">
-        </div>
-        <p><strong>Total:</strong> KES <span id="totalPrice">0</span></p>
-        <div class="mb-3">
-          <label class="form-label">Payment Method:</label>
-          <select class="form-select" id="paymentMethod">
-            <option value="M-Pesa">M-Pesa</option>
-            <option value="Airtel Money">Airtel Money</option>
-            <option value="Card">Card</option>
-            <option value="PayPal">PayPal</option>
-          </select>
-        </div>
-        <div class="text-end">
-          <button class="btn btn-success" onclick="confirmPurchase()">Confirm Purchase</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-center p-4">
-      <h5>✅ Ticket Reserved!</h5>
-      <p>Please <a href="login.html">login</a> or <a href="signup.html">sign up</a> to complete your purchase.</p>
-      <button class="btn btn-outline-success" data-bs-dismiss="modal">OK</button>
-    </div>
+    <!-- Add more cards similarly -->
   </div>
 </div>
 
 <!-- Footer -->
-<footer class="footer mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4"><img src="img/logo 1.png" alt="" width="160"><p class="mt-2">Book your next event with ease. Experience entertainment like never before.</p></div>
-      <div class="col-md-4">
-        <h5>Quick Links</h5>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="events.html" class="text-white text-decoration-none">Events</a></li>
-          <li><a href="dashboard.html" class="text-white text-decoration-none">Dashboard</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <h5>Visit Us</h5>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7977.691195651735!2d36.81079447325443!3d-1.2652151355998782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f175107237fcf%3A0xdf5e23288bd46cc6!2sSolami%20Limited!5e0!3m2!1ssw!2ske!4v1750407779016!5m2!1ssw!2ske" width="380" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+<footer class="footer">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div style="flex: 1; min-width: 200px;">
+      <img src="img/logo 1.png" alt="" width="160">
+      <p>Book your next event with ease. Experience entertainment like never before.</p>
     </div>
-    <hr class="border-light">
-    <div class="text-center">© 2025 Tiqow. All rights reserved.</div>
+    <div style="flex: 1; min-width: 200px;">
+      <h5>Quick Links</h5>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="#">Home</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+      </ul>
+    </div>
+    <div style="flex: 1; min-width: 200px;">
+      <h5>Visit Us</h5>
+      <iframe src="https://www.google.com/maps/embed?..." width="100%" height="180" style="border:0;"></iframe>
+    </div>
   </div>
+  <p style="text-align: center; margin-top: 20px;">© 2025 Tiqow. All rights reserved.</p>
 </footer>
 
-<!-- Scripts -->
- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-  // Update current date
-  document.getElementById("currentDate").textContent = new Date().toLocaleDateString();
-
-  // Fetch user location (simplified)
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("userLocation").textContent = data.city + ", " + data.country;
-    }).catch(() => {
-      document.getElementById("userLocation").textContent = "Unavailable";
-    });
-
-  // Open ticket modal
-  function openModal(eventName, imgSrc, venue, host, date, price) {
-    document.getElementById("modalImage").src = imgSrc;
-    document.getElementById("modalEvent").textContent = eventName;
-    document.getElementById("modalVenue").textContent = venue;
-    document.getElementById("modalHost").textContent = host;
-    document.getElementById("modalDate").textContent = date;
-    document.getElementById("modalPrice").textContent = price;
-    document.getElementById("ticketQty").value = 1;
-    document.getElementById("totalPrice").textContent = price;
-
-    // Show modal
-    new bootstrap.Modal(document.getElementById("ticketModal")).show();
-
-    // Recalculate total
-    document.getElementById("ticketQty").oninput = () => {
-      const qty = parseInt(document.getElementById("ticketQty").value);
-      const total = qty * price;
-      document.getElementById("totalPrice").textContent = total;
-    };
-  }
-  // Initialize Swiper
-   new Swiper('.mySwiper', {
-      slidesPerView: 2,
-      spaceBetween: 10,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: true,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: { slidesPerView: 3 },
-        992: { slidesPerView: 4 }
-      }
-    });
 
 
-  // Show confirmation
-  function confirmPurchase() {
-    bootstrap.Modal.getInstance(document.getElementById("ticketModal")).hide();
-    new bootstrap.Modal(document.getElementById("confirmModal")).show();
+  new Swiper('.mySwiper', {
+    slidesPerView: 2,
+    spaceBetween: 10,
+    loop: true,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: true,
+    },
+    breakpoints: {
+      768: { slidesPerView: 3 },
+      992: { slidesPerView: 4 }
+    }
+  });
+
+  function showStory(title, img) {
+    alert(`Showing story: ${title}`); // Replace with modal logic if needed
   }
 
   function showStory(title, image) {
@@ -357,8 +245,5 @@
     setTimeout(() => bootstrap.Modal.getInstance(document.getElementById('storyModal')).hide(), 5000);
   }
 </script>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
